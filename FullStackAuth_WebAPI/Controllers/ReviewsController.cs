@@ -38,7 +38,7 @@ namespace FullStackAuth_WebAPI.Controllers
 
         // POST api/Reviews
         [HttpPost, Authorize]
-        public IActionResult Post([FromBody] Review review )
+        public IActionResult Post([FromBody] Review review )  //Add validation to this to check user and check data sent in.
         {
             //Get the User Id from the token. 
             var userId = User.FindFirstValue("id");
