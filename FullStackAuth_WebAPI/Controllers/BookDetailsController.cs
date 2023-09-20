@@ -58,12 +58,17 @@ namespace FullStackAuth_WebAPI.Controllers
                 favorite = _context.Favorites.Where(f => f.UserId == userId).Select(f => f.BookId).ToList().Contains(bookId);
             }
 
+            // Calculate the sum of ratings
+            double sumOfRatings = reviews.Select(r => r.Rating).Sum();
+
+            // Calculate the average rating only if there are reviews
+            double averageRating = reviews.Count() > 0 ? sumOfRatings / reviews.Count() : 0.0;
             //DTO returns a list of reviews associated with the bookId, as well as 
             BookDetailsDTO bookDetails = new BookDetailsDTO
             {
                 Reviews = reviews,
                 IsFavorite = favorite,
-                AverageRating = reviews.Select(r => r.Rating).Sum() / reviews.Count(),
+                AverageRating = averageRating
                 
             };
 
